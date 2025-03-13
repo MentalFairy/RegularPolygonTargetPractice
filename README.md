@@ -2,7 +2,7 @@
 
 Firstly, thanks for the challenge! I had fun and learned something new. Here's a breakdown of my approach:
 
-###Instructions:
+###Instructions###:
 Open with Unity 6.0.x.1f, build with .26 version as per instructions, but should work with anything.
 Hit play, test it out.
 Or attach your android phone, build and deploy to your device.
