@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace RegularPolygons.Core
 {
@@ -11,6 +12,9 @@ namespace RegularPolygons.Core
         [SerializeField]
         PolygonShape polygonShape;
 
+        [SerializeField]
+        PlayerInput playerInput;
+
         [Header("Tweaksables")]
         [SerializeField]
         [Range(0f, 1f)]
@@ -20,61 +24,49 @@ namespace RegularPolygons.Core
         [SerializeField]
         float lastClickTime;
 
+        [SerializeField]
+        Vector2 lastPosition;
+
+        [Header("Input Actions")]
+        [SerializeField] 
+        InputActionReference tapAction;
+        [SerializeField]
+        InputActionReference moveAction;
+
         private void OnEnable()
         {
             ShapeControllerManager.OnShapeChanged += ShapeControllerManager_OnShapeChanged;
+            tapAction.action.performed += TapAction;
+            moveAction.action.performed += MoveAction;
         }
         private void OnDisable()
         {
             ShapeControllerManager.OnShapeChanged -= ShapeControllerManager_OnShapeChanged;
+            tapAction.action.performed -= TapAction;
+            moveAction.action.performed -= MoveAction;
         }
-        private void ShapeControllerManager_OnShapeChanged(PolygonShape newShape)
-        {
-            polygonShape = newShape;
-        }       
 
-        void Update()
+        private void MoveAction(InputAction.CallbackContext context)
+        {          
+            lastPosition = context.ReadValue<Vector2>();
+        }
+
+        private void TapAction(InputAction.CallbackContext obj)
         {
-            if (IsDoubleClick() || IsDoubleTap())
+            if (Time.time - lastClickTime < clickThreshold)
             {
-                Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 worldPoint = Camera.main.ScreenToWorldPoint(lastPosition);
                 if (polygonShape.PolygonCollider.OverlapPoint(worldPoint))
                 {
                     OnPolygonShapeDoubleClicked?.Invoke(polygonShape);
                 }
             }
+            lastClickTime = Time.time;
         }
-
-        #region Private Methods
-
-        /// <summary>
-        /// Checks for desktop platforms if a double click has been registered within the time threshold.
-        /// </summary>
-        /// <returns>True, if double click is registered within threshold.</returns>
-        bool IsDoubleClick()
+       
+        private void ShapeControllerManager_OnShapeChanged(PolygonShape newShape)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (Time.time - lastClickTime < clickThreshold) return true;
-                lastClickTime = Time.time;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Checks for mobile platforms if a double click has been registered within the time threshold.
-        /// </summary>
-        /// <returns>True, if double click is registered within threshold.</returns>
-        bool IsDoubleTap()
-        {
-            if (Input.touchCount == 1 && Input.touches[0].phase == TouchPhase.Began)
-            {
-                if (Time.time - lastClickTime < clickThreshold) return true;
-                lastClickTime = Time.time;
-            }
-            return false;
-        }
-
-        #endregion
+            polygonShape = newShape;
+        }       
     }
 }

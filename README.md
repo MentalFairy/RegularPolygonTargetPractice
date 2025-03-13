@@ -6,6 +6,7 @@ Firstly, thanks for the challenge! I had fun and learned something new. Here's a
 Open with Unity 6.0.x.1f, build with .26 version as per instructions, but should work with anything.
 Hit play, test it out.
 Or attach your android phone, build and deploy to your device.
+Or if you risk yourself, or trust me that I did not add any crypto miners in the build, you can install the .apk.
 
 ### Time to Develop:
 - **Time spent**: Probably less than an hour.
@@ -31,8 +32,5 @@ So, I decided to pivot and come up with a more customizable solution!
 ### More show-off:
 For more info, check out my [Toptal profile](https://www.toptal.com/resume/radu-adrian-marcu) or [LinkedIn](https://www.linkedin.com/in/radu-adrian-marcu-992349108/), both listed in my resume.
 
-### P.S.
-I own a Pixel 7 and ran into this issue:  
-[Unity Issue Tracker: Android touch input unresponsive on Pixel 7 Pro](https://issuetracker.unity3d.com/issues/android-touch-input-is-unresponsive-when-building-for-pixel-7-pro-device?page=2#comments)  
-It's still unresolved as of now, but the UI works fine on Unity Remote 5 and on other devices.
-
+P.S.
+When unity says that "Both" input systems are no longer supported on mobile devices concomitently, they actually mean that only the new one is supported.
