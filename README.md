@@ -2,8 +2,8 @@
 
 Firstly, thanks for the challenge! I had fun and learned something new. Here's a breakdown of my approach:
 
-###Instructions###:
-Open with Unity 6.0.x.1f, build with .26 version as per instructions, but should work with anything.
+### Instructions:
+Open with Unity 6.0.x.1f, project was built with .26 version as per instructions, but should work with any other minor version.
 Hit play, test it out.
 Or attach your android phone, build and deploy to your device.
 Or if you risk yourself, or trust me that I did not add any crypto miners in the build, you can install the .apk.
